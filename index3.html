@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu Sorpresa Final 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #ffe6f0, #fff0f5); /* Fondo bonito y romántico */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+    }
+
+    /* ❌ Botón cerrar fijo */
+    .cerrar {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      font-size: 1.8em;
+      color: #d6336c;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 100;
+    }
+
+    /* 💌 Carta centrada */
+    .carta {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .mensaje {
+      font-size: 1em;
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .firma {
+      margin-top: 15px;
+      font-style: italic;
+      color: #d6336c;
+      font-size: 0.9em;
+    }
+
+    .boton {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #d6336c;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+
+    .boton:hover {
+      background: #a61e4d;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ❌ Botón cerrar -->
+  <span class="cerrar" onclick="history.back()">✖</span>
+
+  <!-- 💌 Carta centrada -->
+  <div class="carta">
+    <div class="mensaje" id="mensaje"></div>
+  
+  </div>
+
+  <script>
+    // Mensaje que se escribe solo
+const texto = `Hoy quiero decirte que cada vez que pienso en ti, mi corazón late más rápido. Tu risa es mi melodía favorita y tu mirada ilumina incluso mis días más grises. Eres un regalo de Dios en mi vida y no dejo de agradecer por ti. Feliz cumpleaños, mi niña preciosa 💖.`;
+    const mensaje = document.getElementById('mensaje');
+    let index = 0;
+
+    function escribir() {
+      if(index < texto.length){
+        mensaje.innerHTML += texto.charAt(index);
+        index++;
+        setTimeout(escribir, 50); // Velocidad de escritura
+      }
+    }
+
+    escribir();
+    
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #ffffff; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      text-align: center;
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 2.5em; 
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-weight: 400;
+      font-size: 1.1em;
+      opacity: 0.8;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .boton-corazon {
+      margin-top: 30px;
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .boton-corazon img {
+      width: 100px; 
+      max-width: 40vw;
+      height: auto;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    }
+
+    .boton-corazon img:hover {
+      transform: scale(1.1);
+    }
+
+    .boton-corazon span {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1em; 
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+
+    @media (min-width: 768px) {
+      h1 { font-size: 3em; }
+      h2 { font-size: 1.3em; }
+      .boton-corazon img { width: 120px; }
+      .boton-corazon span { font-size: 1.2em; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz Cumpleaños Mi Amor</h1>
+  <h2>Gracias por iluminar mi vida cada día</h2>
+
+  <!-- Botón en forma de corazón -->
+  <div class="boton-corazon" onclick="window.location.href='index2.html'">
+    <img src="corazon.png" alt="Botón corazón">
+    <span>Toca aquí</span>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 5 + 2;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = (Math.random() - 0.5) * 6;
+        this.color = color;
+        this.life = 100;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life--;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function createFirework(x, y) {
+      const colors = ["#ff4b5c", "#ff758c", "#fbd46d", "#f8a5c2"];
+      for (let i = 0; i < 50; i++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, color));
+      }
+    }
+
+    function handleParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        if (particles[i].life <= 0) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(255,255,255,0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      handleParticles();
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    setInterval(() => {
+      let x = Math.random() * canvas.width;
+      let y = Math.random() * canvas.height / 2;
+      createFirework(x, y);
+    }, 800);
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
